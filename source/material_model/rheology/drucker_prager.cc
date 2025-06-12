@@ -200,6 +200,9 @@ namespace aspect
                            "those corresponding to chemical compositions. "
                            "The extremely large default cohesion value (1e20 Pa) prevents the viscous stress from "
                            "exceeding the yield stress. Units: \\si{\\pascal}.");
+        prm.declare_entry ("Prefactors for yield stress", "1.0",
+                           Patterns::List(Patterns::Double(0)),
+                           "Prefactors for Drucker Prager yield stress. Units: None.");
         prm.declare_entry ("Maximum yield stress", "1e12",
                            Patterns::Anything(),
                            "List of maximum yield stresses, for background material and compositional fields, "
@@ -264,7 +267,8 @@ namespace aspect
         options.property_name = "Maximum yield stress";
         max_yield_stresses = Utilities::MapParsing::parse_map_to_double_array(prm.get("Maximum yield stress"),
                                                                               options);
-
+        yield_stress_prefactors = Utilities::MapParsing::parse_map_to_double_array(prm.get("Prefactors for yield stress"),
+                                                                                   options);
         // Whether to include a plastic damper when computing the Drucker-Prager plastic viscosity
         use_plastic_damper = prm.get_bool("Use plastic damper");
 

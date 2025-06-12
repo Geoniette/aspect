@@ -154,6 +154,10 @@ namespace aspect
            */
           std::vector<double> cohesions;
 
+          /* Prefactors for the yield stress.
+          */
+          std::vector<double> yield_stress_prefactors;
+
           /**
            * The yield stress is limited to a constant value, stored in Pa.
            */
